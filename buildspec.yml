@@ -1,0 +1,22 @@
+version: 0.2
+	
+	phases:
+	  pre_build:
+	    commands:
+	      - echo Logging in to Amazon ECR...
+	      - $(aws ecr get-login --no-include-email --region ap-south-1)
+	  build:
+	    commands:
+	      - echo Build started on `date`
+	      - echo Building the Docker image...          
+	      - docker build -t express .
+	      - docker tag express:latest 841282403055.dkr.ecr.ap-south-1.amazonaws.com/express:latest
+	  post_build:
+	    commands:
+	      - echo Build completed on `date`
+	      - echo Pushing the Docker image...
+	      - docker push 841282403055.dkr.ecr.ap-south-1.amazonaws.com/express:latest
+	      - echo Writing image definitions file...
+	      - printf '[{"name":"express","imageUri":"841282403055.dkr.ecr.ap-south-1.amazonaws.com/express:latest"}]' > imagedefinitions.json
+	artifacts:
+	  files: imagedefinitions.json
