@@ -1,23 +1,20 @@
-# Set base image
+# Use an official Node.js runtime as a parent image
 FROM node:14
 
-# Set working directory
+# Set the working directory to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-# Install dependencies
+# Install app dependencies
 RUN npm install
 
-# Copy source code to the container
+# Copy the rest of the app source code to the container
 COPY . .
 
-# Set environment variables
-ENV PORT=3000
+# Expose port 3000 to the outside world
+EXPOSE 3000
 
-# Expose the port
-EXPOSE ${PORT}
-
-# Start the application
+# Run the command to start the ExpressJS server
 CMD ["npm", "start"]
