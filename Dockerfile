@@ -1,19 +1,23 @@
-FROM node:18-alpine
+# Set base image
+FROM node:14
 
-ENV PORT 3000
-# Create app directory
+# Set working directory
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
-# "./" ROOT
-RUN npm install express
 
+# Install dependencies
+RUN npm install
 
-# Bundle app source
+# Copy source code to the container
 COPY . .
 
-EXPOSE 3000
-CMD [ "npm", "run"]
+# Set environment variables
+ENV PORT=3000
+
+# Expose the port
+EXPOSE ${PORT}
+
+# Start the application
+CMD ["npm", "start"]
