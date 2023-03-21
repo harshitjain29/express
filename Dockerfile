@@ -18,3 +18,4 @@ EXPOSE 3000
 
 # Run the command to start the ExpressJS server
 CMD ["npm", "start"]
+
