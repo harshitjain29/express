@@ -11,8 +11,6 @@ COPY package*.json ./
 # "./" ROOT
 RUN npm install express
 
-RUN npm init
-
 
 # Bundle app source
 COPY . .
